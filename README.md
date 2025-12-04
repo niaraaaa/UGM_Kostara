@@ -1,6 +1,4 @@
-<p align="center">
-  <b>🏠 UGM Kostara (UGM Kost Area)</b>
-</p>
+# <p align="center">UGM Kostara (UGM Kost Area)</p>
 
 ## 📝 Deskripsi Produk
 UGM Kostara merupakan aplikasi Mobile yang mempermudah mahasiswa, khususnya di sekitar UGM, untuk menemukan kos sesuai kebutuhan (harga, jenis kelamin, fasilitas, dan rating). Nama “Kostara” merupakan singkatan dari “Kost Area”, yang menekankan lokasi kos di area sekitar kampus UGM. UGM Kostara menyediakan beberapa fitur, diantaranya:
