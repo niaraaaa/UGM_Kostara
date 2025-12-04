@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>UGM Kostara Map</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+
+    <!-- Material Icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <style>
+        html, body { margin: 0; padding: 0; }
+        #map { width: 100vw; height: 100vh; }
+
+        /* Legend */
+        .legend {
+            position: absolute;
+            bottom: 30px;
+            left: 10px;
+            background: #FAF3E0;
+            padding: 10px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+            font-family: sans-serif;
+        }
+        .legend div { display: flex; align-items: center; margin-bottom: 4px; }
+        .legend div span {
+            display: inline-block; width: 16px; height: 16px; margin-right: 6px; border-radius: 4px;
+        }
+
+        /* Popup tema */
+        .popup-custom {
+            background-color: #DFF6E4; /* hijau muda lembut */
+            color: #1F4B3A;
+            border-radius: 12px;
+            padding: 12px;
+            font-family: sans-serif;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .popup-custom b { font-size: 16px; }
+        .popup-custom button {
+            cursor: pointer;
+            margin-top: 8px;
+            padding: 6px 12px;
+            border: none;
+            border-radius: 6px;
+            background-color: #C62828;
+            color: white;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="map"></div>
+
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+
+    <!-- Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-database.js"></script>
+
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyAh8uII9zrgrEwzMYbByUfhljRAkShnufI",
+            authDomain: "reactnative-2025-d2e8d.firebaseapp.com",
+            databaseURL: "https://reactnative-2025-d2e8d-default-rtdb.firebaseio.com",
+            projectId: "reactnative-2025-d2e8d",
+            storageBucket: "reactnative-2025-d2e8d.firebasestorage.app",
+            messagingSenderId: "951608499275",
+            appId: "1:951608499275:web:2eb6c78b758b748a8901ce"
+        };
+        firebase.initializeApp(firebaseConfig);
+        const database = firebase.database();
+
+        const map = L.map("map").setView([-7.7706, 110.3778], 15);
+        L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", { attribution: '&copy; OpenStreetMap contributors' }).addTo(map);
+
+        const markersLayer = L.layerGroup().addTo(map);
+
+        // Legend
+        const legend = L.control({ position: "bottomleft" });
+        legend.onAdd = function () {
+            const div = L.DomUtil.create("div", "legend");
+            div.innerHTML = `
+                <div><span style="background:#007E6E;"></span>Banyak (>5)</div>
+                <div><span style="background:#FF8C00;"></span>Sedikit (1-5)</div>
+                <div><span style="background:#FF0000;"></span>Penuh (0)</div>
+            `;
+            return div;
+        };
+        legend.addTo(map);
+
+        const pointsRef = database.ref("/points");
+        pointsRef.on("value", (snapshot) => {
+            const data = snapshot.val();
+            markersLayer.clearLayers();
+
+            if (data) {
+                Object.keys(data).forEach((key) => {
+                    const point = data[key];
+                    if (!point.coordinates) return;
+                    const coords = point.coordinates.split(",").map(c => parseFloat(c.trim()));
+                    const kamar = Number(point.kamar ?? 0);
+
+                    // Warna marker gonjreng sesuai kamar
+                    let color = "#007E6E"; // banyak
+                    if (kamar <= 5 && kamar > 0) color = "#FF8C00"; // sedikit
+                    if (kamar === 0) color = "#FF0000"; // penuh
+
+                    // Icon material
+                    const iconHtml = `<i class="material-icons" style="color:${color}; font-size:42px;">location_on</i>`;
+                    const icon = L.divIcon({ html: iconHtml, iconSize: [42, 42], className: "custom-pin" });
+
+                    const marker = L.marker(coords, { icon }).addTo(markersLayer);
+                    marker.bindPopup(`
+                        <div class="popup-custom">
+                            <b>${point.name ?? "Tanpa Nama"}</b><br>
+                            Kamar: ${kamar}<br>
+                            <button onclick="deletePoint('${key}')">Hapus</button>
+                        </div>
+                    `);
+                });
+            }
+        });
+
+        function deletePoint(key) {
+            if (confirm("Yakin ingin menghapus data ini?")) {
+                pointsRef.child(key).remove();
+            }
+        }
+    </script>
+</body>
+
+</html>
