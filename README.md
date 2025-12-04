@@ -1,50 +1,64 @@
-# Welcome to your Expo app 👋
+<p align="center">
+  <b>🏠 UGM Kostara (UGM Kost Area)</b>
+</p>
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+## 📝 Deskripsi Produk
+UGM Kostara merupakan aplikasi Mobile yang mempermudah mahasiswa, khususnya di sekitar UGM, untuk menemukan kos sesuai kebutuhan (harga, jenis kelamin, fasilitas, dan rating). Nama “Kostara” merupakan singkatan dari “Kost Area”, yang menekankan lokasi kos di area sekitar kampus UGM. UGM Kostara menyediakan beberapa fitur, diantaranya:
 
-## Get started
+- Menampilkan kos dalam bentuk daftar maupun marker di peta interaktif
+- Memfilter kos berdasarkan harga, jenis kelamin, jumlah kamar, dan rating
+- Menandai kos favorit pengguna dan menampilkan informasi lengkap kos melalui popup atau detail
+- Menghubungkan pengguna dengan rute ke kos menggunakan Google Maps
+- Pencarian kos berdasarkan nama kos
 
-1. Install dependencies
+Produk ini ditujukan untuk **mempermudah pencarian kos secara cepat dan efisien**, serta membantu mahasiswa membuat keputusan berdasarkan informasi yang lengkap dan real-time.
 
-   ```bash
-   npm install
-   ```
+## 🛠️ Komponen Pembangun Produk
 
-2. Start the app
+**Frontend / UI**
 
-   ```bash
-   npx expo start
-   ```
+- React Native (untuk mobile app)
+- Expo Router & komponen UI khusus (`ThemedView`, `ThemedText`, `HapticTab`)
+- Leaflet JS / WebView untuk versi web
+- Animated components (`react-native-reanimated`) untuk efek transisi daftar kos
 
-In the output, you'll find options to open the app in a
+**Backend / Database**
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+- Firebase Realtime Database untuk menyimpan data kos, pengguna, dan favorit
+- Firebase Authentication (opsional, untuk user login)
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+**Fitur Khusus**
 
-## Get a fresh project
+- Filter kos (harga, jenis, rating)
+- Tombol favorit
+- Popup marker di peta
+- Navigasi ke lokasi kos menggunakan Google Maps
+- Pencarian kos berdasarkan nama
 
-When you're ready, run:
+## 📊 Sumber Data
 
-```bash
-npm run reset-project
-```
+- **Data lokasi kos**: Google Maps
+- **Informasi lengkap kos**: website mamikos
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+## 📸 Tangkapan Layar Komponen Penting Produk
 
-## Learn more
+<table>
+  <tr>
+    <td align="center"><b>Beranda</b><br><img src="https://github.com/niaraaaa/UGM_Kostara/blob/916beb3817abb55619cc655e74fad4d6777004ef/Beranda.jpg" width="300"/></td>
+    <td align="center"><b>Daftar Kos</b><br><img src="https://github.com/niaraaaa/UGM_Kostara/blob/916beb3817abb55619cc655e74fad4d6777004ef/Daftar%20Kos.jpg" width="300"/></td>
+  </tr>
+  <tr>
+    <td align="center"><b>Peta</b><br><img src="https://github.com/niaraaaa/UGM_Kostara/blob/916beb3817abb55619cc655e74fad4d6777004ef/Peta.jpg" width="300"/></td>
+    <td align="center"><b>Daftar Kos Favorit</b><br><img src="https://github.com/niaraaaa/UGM_Kostara/blob/916beb3817abb55619cc655e74fad4d6777004ef/List%20Favorit.jpg" width="300"/></td>
+  </tr>
+  <tr>
+    <td align="center"><b>Form Input</b><br><img src="https://github.com/niaraaaa/UGM_Kostara/blob/916beb3817abb55619cc655e74fad4d6777004ef/Form%20Input%20Location.jpg" width="300"/></td>
+    <td align="center"><b>Form Edit</b><br><img src="https://github.com/niaraaaa/UGM_Kostara/blob/916beb3817abb55619cc655e74fad4d6777004ef/Form%20Edit%20Location.jpg" width="300"/></td>
+  </tr>
+  <tr>
+    <td align="center"><b>Rute</b><br><img src="https://github.com/niaraaaa/UGM_Kostara/blob/916beb3817abb55619cc655e74fad4d6777004ef/rute.jpg" width="300"/></td>
+    <td></td>
+  </tr>
+</table>
 
-To learn more about developing your project with Expo, look at the following resources:
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
